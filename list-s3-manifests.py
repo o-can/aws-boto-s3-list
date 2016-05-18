@@ -21,12 +21,11 @@ response = client.list_objects_v2(
 # Just grab the key + last modified from the response and store the tuples in a list
 key_repo = []
 for key in response['Contents']:
-    entry = (object['Key'], object['LastModified'])
+    entry = (key['Key'], key['LastModified'])
     key_repo.append(entry)
 
 # Sort the list by datetime(second entry), reverse the order to have the newest first
-key_repo.sort(key=lambda x: x[1], reverse=True)
-
-# Print the key of the newest entry if it exists
+# Print the key of the newest entry
 if len(key_repo) > 0:
+    key_repo.sort(key=lambda x: x[1], reverse=True)
     print(key_repo[0][0])
